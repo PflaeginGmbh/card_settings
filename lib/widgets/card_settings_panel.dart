@@ -25,6 +25,7 @@ class CardSettings extends InheritedWidget {
     this.divider,
     this.scrollable = true,
     this.fieldPadding,
+    this.useSafeArea = true,
   }) : super(
           key: key,
           child: _CardSettingsContent(
@@ -37,6 +38,7 @@ class CardSettings extends InheritedWidget {
             sectioned: false,
             cardless: cardless,
             scrollable: scrollable,
+            useSafeArea: true,
           ),
         );
 
@@ -58,6 +60,7 @@ class CardSettings extends InheritedWidget {
     this.divider,
     this.scrollable = true,
     this.fieldPadding,
+    this.useSafeArea = true,
   }) : super(
           key: key,
           child: _CardSettingsContent(
@@ -70,6 +73,7 @@ class CardSettings extends InheritedWidget {
             sectioned: true,
             cardless: cardless,
             scrollable: scrollable,
+            useSafeArea: useSafeArea,
           ),
         );
 
@@ -87,6 +91,7 @@ class CardSettings extends InheritedWidget {
   final Divider? divider;
   final bool scrollable;
   final EdgeInsetsGeometry? fieldPadding;
+  final bool useSafeArea;
 
   static CardSettings? of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<CardSettings>();
@@ -118,6 +123,7 @@ class _CardSettingsContent extends StatelessWidget {
     this.sectioned = true,
     this.cardless = false,
     this.scrollable = true,
+    this.useSafeArea = true,
   }) : super(key: key);
 
   final List<CardSettingsSection> children;
@@ -129,6 +135,7 @@ class _CardSettingsContent extends StatelessWidget {
   final bool sectioned;
   final bool cardless;
   final bool scrollable;
+  final bool useSafeArea;
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +163,7 @@ class _CardSettingsContent extends StatelessWidget {
 
     var wrapper = (scrollable) ? SingleChildScrollView(child: cards) : cards;
 
-    return SafeArea(child: wrapper);
+    return useSafeArea ? SafeArea(child: wrapper) : wrapper;
   }
 
   List<Widget> _buildMaterialSections(BuildContext context) {
